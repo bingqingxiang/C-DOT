@@ -2,8 +2,7 @@ import networkx as nx
 import numpy as np
 
 class Graph:
-    
-    
+    """ Create the network topology """
     def __init__(self,graphType='erdos_renyi',number_of_nodes=10,probability=0.5):
         self.graphType=graphType
         self.n=number_of_nodes

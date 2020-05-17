@@ -5,7 +5,7 @@ import os
 import pickle
 
 def create_centralized_data(dataDimension,TotalSamples,top_rank,eigen_gap):
-    
+    """ Generate synthetic data """
     diag = np.zeros((dataDimension, dataDimension))
     a=np.linspace(1,0.8,top_rank)
     b=np.linspace(0.8*eigen_gap,0.1,dataDimension-top_rank)
@@ -16,9 +16,10 @@ def create_centralized_data(dataDimension,TotalSamples,top_rank,eigen_gap):
     return data,TotalSamples,dataDimension
 
 def distributed_data(datasets,data,number_of_nodes,TotalSamples):
+    """ Column-wise distribute data, split data into (number_of_nodes) files"""
     if not os.path.exists('Data/Test/{}'.format(datasets)):
         os.mkdir('Data/Test/{}'.format(datasets))
-    
+        
     s = math.floor(TotalSamples /number_of_nodes)
     for i in range(number_of_nodes):       # loop for nodes
         Yi = data[:,i*s:(i+1)*s]
@@ -35,6 +36,7 @@ def load_local_data(filename,node_id):#name of the file, id of the current node
     return data,NumSamples,dataDimension
 
 def distributed_covariance(data,number_of_nodes,TotalSamples):
+     """ Column-wise distribute data, split data and put sample covariance into (number_of_nodes) files"""
     C = np.zeros((number_of_nodes,), dtype=np.object)
     s = math.floor(TotalSamples /number_of_nodes)
     for i in range(number_of_nodes):       # loop for nodes
@@ -58,6 +60,7 @@ def SVD(datasets,covariance_matrix, dimension, r): # eigenvector of sample covar
 
 
 def zeromean(data,dim,N):
+    """Subtract each column with their mean """
     M=np.mean(data,axis=1).reshape(dim,1)
     M_matrix= np.tile(M,(1,N))
     return (data-M_matrix)
