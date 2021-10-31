@@ -26,10 +26,14 @@ In the thesis we conducted two main experiments to produce all plots and charts.
 To obtain our results we uncomment the Design Data block and ran the `Preprocess.ipynb` file which will produce a  folder called `synthetic_n{}r{}g{}` which include n(number of nodes) pickle files. Updload the folder to a cluster and run the 'run.py' file after the code has finished running. Once it is finished copy the generated `.pickle` files to your local machine and run the `plot_synthetic.py` script in python which will produce a plot of the average test error for each algorithm.
 
 ## Runtime
-On our servers this job completed in 1 hours and 52 minutes. This may vary depending on your computational power.
+On our servers this job completed in 30 minutes. This may vary depending on your computational power.
 
 # Realworld Experiments
 First step is to download the real-world datasets from official websites. To obtain our results we uncomment the corresponding block and ran the `Preprocess.ipynb` file which will produce a  folder called `{dataset's name}{number of nodes}` which include n(number of nodes) pickle files. Updload the folder to a cluster and run the 'run.py' file after the code has finished running. Once it is finished copy the generated `.pickle` files to your local machine and run the `plot_synthetic.py` script in python which will produce a plot of the average test error for each algorithm.
+
+## Runtime
+On our servers this job completed in 1 hours and 52 minutes. This may vary depending on your computational power.
+
 
 <a name="contributors"></a>
 # Contributors
