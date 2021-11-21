@@ -27,7 +27,7 @@ def distributed_data(datasets,data,number_of_nodes,TotalSamples):
                 pickle.dump(Yi, handle)
                 
 def load_local_data(filename,node_id):#name of the file, id of the current node
-    # Load the dataset
+    """ Take name of the file folder and and node id to load the dataset for 1 node, and return it's number of samples,and it's data dimension"""
     data=pd.read_pickle("Data/Test/{}/data{}.pickle".format(filename,node_id))
     
     dataDimension=data.shape[0]
@@ -46,7 +46,8 @@ def distributed_covariance(data,number_of_nodes,TotalSamples):
     return C
 
         
-def SVD(datasets,covariance_matrix, dimension, r): # eigenvector of sample covariance matrix,number of nodes,dimension,
+def SVD(datasets,covariance_matrix, dimension, r): 
+    """ calculate top r eigenvector of sample covariance matrix,number of nodes,dimension  and save top r eigenvector as pickle file"""
     eig_val, eig_vec = np.linalg.eig(covariance_matrix)
     Eig_vec_top_r = np.zeros((dimension,r))
     Eig_vec_top_r = eig_vec[:,0:r]
@@ -66,7 +67,7 @@ def zeromean(data,dim,N):
     return (data-M_matrix)
 
 def load_MNIST_data():
-    # Load the dataset
+    # Load mnist dataset
     mnist=pd.read_pickle("Data/Original/mnist_py3k.pkl.gz")
     train_data=mnist[0][0]
     train_label=mnist[0][1]
@@ -88,6 +89,7 @@ def unpickle(file):
     return data
 
 def load_CIFAR10_data():
+    # Load cifar 10 dataset
     import pickle
     data=[]
     for i in range (1,6):
@@ -110,6 +112,7 @@ def load_CIFAR10_data():
     return data,TotalSamples,dataDimension
 
 def load_lfw_people():
+    # Load lfw dataset
     from sklearn.datasets import fetch_lfw_people
     lfw_dataset = fetch_lfw_people()
     TotalSamples, h, w = lfw_dataset.images.shape
@@ -121,6 +124,7 @@ def load_lfw_people():
     return data,TotalSamples,dataDimension
 
 def zeromean_ImageNet32_data():
+    """Subtract each column with their mean for imagenet dataset"""
     import pickle
     file_size=5000
     dim=32*32*3
@@ -144,6 +148,7 @@ def zeromean_ImageNet32_data():
         print(i)
     
 def SVD_ImageNet32_data(number_of_nodes,r):
+    """ calculate top r eigenvector of sample covariance matrix,number of nodes,dimension and save top r eigenvector as pickle file for imagenet dataset"""
     import pickle
     file_size=5000
     data=np.zeros((1024,1024))
